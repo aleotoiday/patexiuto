@@ -1,0 +1,7 @@
+#!name= 𝗦𝗼𝘂𝗻𝗱𝗖𝗹𝗼𝘂𝗱 𝗚𝗼+
+#!desc= 🐰
+
+[MITM]
+hostname= %APPEND% api-mobile.soundcloud.com
+[Script]
+SoundCloudGo= type=http-response,pattern=https://api-mobile.soundcloud.com/configuration/ios,requires-body=1,script-path=https://patexiutoo.vercel.app/scripts/soundcloud.js
