@@ -3,4 +3,5 @@
 2. [SoundCloud](https://patexiutoo.vercel.app/modules/soundcloud.module)
 3. [Spotify](https://patexiutoo.vercel.app/modules/spotify.module)
 4. [VSCO](https://patexiutoo.vercel.app/modules/vsco.module)
-5. [Youtube](https://patexiutoo.vercel.app/modules/youtube.module)
+5. [Youtube](https://patexiutoo.vercel.app/modules/youtube.module) 
+6. [Color Widgets](https://patexiutoo.vercel.app/modules/colorwidgets.module)
