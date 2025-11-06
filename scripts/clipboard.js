@@ -1,5 +1,5 @@
 /*
- * Name:         PastePal
+ * Name:         ClipBoard
  * Author:       @aleotoidayy
  * Update:       6/11/2025
  */
