@@ -1,0 +1,7 @@
+#!name= 𝗣𝗮𝘀𝘁𝗲𝗣𝗮𝗹
+#!desc= 🐰
+
+[MITM]
+hostname= api.revenuecat.com
+[Script]
+PastePal = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), requires-body=true, max-size=-1, timeout=60, script-path=https://patexiutoo.vercel.app/scripts/pastepal.js
