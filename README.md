@@ -6,3 +6,4 @@
 5. [Youtube](https://patexiutoo.vercel.app/modules/youtube.module) 
 6. [Color Widgets](https://patexiutoo.vercel.app/modules/colorwidgets.module)
 7. [ClipBoard](https://patexiutoo.vercel.app/modules/clipboard.module)
+8. [PastePal](https://patexiutoo.vercel.app/modules/pastepal.module)
