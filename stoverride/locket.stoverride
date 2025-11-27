@@ -1,0 +1,26 @@
+name: Locket Gold
+desc: 🐰
+
+http:
+  mitm:
+    - api.revenuecat.com
+
+  script:
+    - match: ^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$)
+      name: revenuecat
+      type: response
+      require-body: true
+      max-size: -1
+      timeout: 60
+    - match: ^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers)
+      name: deleteHeader
+      type: request
+      timeout: 60
+
+script-providers:
+  revenuecat:
+    url: https://patexiutoo.vercel.app/scripts/revenuecat.js
+    interval: 86400
+  deleteHeader:
+    url: https://patexiutoo.vercel.app/scripts/deleteheader.js
+    interval: 86400
