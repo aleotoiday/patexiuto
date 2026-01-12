@@ -1,0 +1,146 @@
+name: All In One
+desc: "🐰"
+
+http:
+  mitm:
+    - ap*.intsig.net
+    - photos.adobe.io
+    - api.revenuecat.com
+    - nicegram.cloud
+    - restore-access.indream.app
+    - buy.itunes.apple.com
+    - api.picsart.com
+    - api.meiease.cn
+    - api.meiease.com
+    - api-mobile.soundcloud.com
+    - spclient.wg.spotify.com
+    - *spclient.spotify.com
+    - premium*.truecaller.com
+
+  header-rewrite:
+    # Picsart & Spotify headers
+    - ^https://api\.(picsart|meiease)\.c(n|om)/users/show/me\.json$:
+        if-none-match: ""
+    - ^https://(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)/user-customization-service/v1/customize$:
+        if-none-match: ""
+
+  script:
+    # CamScanner
+    - match: ^https://(api|api-cs.*)\.intsig\.net/purchase/cs/query_property\?
+      name: Camscanner
+      type: response
+      require-body: true
+
+    # Lightroom
+    - match: ^https://photos\.adobe\.io/v\d/accounts
+      name: Lightroom
+      type: response
+      require-body: true
+      max-size: 0
+
+    # Locket
+    - match: ^https://api\.revenuecat\.com/.+/(receipts$|subscribers/[^/]+$)
+      name: Locket
+      type: response
+      require-body: true
+      max-size: -1
+      timeout: 60
+
+    # NiceGram
+    - match: ^https?://(nicegram\.cloud/api/v\d/user/info|restore-access\.indream\.app/restoreAccess)
+      name: Nicegram
+      type: response
+      require-body: true
+      max-size: 0
+
+    # Picsart (http-request)
+    - match: ^https://api.picsart.com/gw-v2/shop/subscription/apple/purchases
+      name: Picsart
+      type: request
+      require-body: true
+      timeout: 5
+
+    # ReLens
+    - match: ^https://buy\.itunes\.apple\.com/verifyReceipt
+      name: Relens
+      type: response
+      require-body: true
+
+    # SoundCloud
+    - match: ^https://api-mobile.soundcloud.com/configuration/ios
+      name: SoundCloudGo
+      type: response
+      require-body: true
+
+    # Spotify
+    # spotify-qx-header.js
+    - match: ^https://(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)/user-customization-service/v1/customize$
+      name: spotify-qx-header
+      type: request
+      require-body: false
+
+    # spotify-json.js
+    - match: ^https://(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)/(artistview/v1/artist|album-entity-view/v2/album)/
+      name: spotify-json
+      type: request
+      require-body: false
+
+    # spotify-proto.js
+    - match: ^https://(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)/(bootstrap/v1/bootstrap|user-customization-service/v1/customize)$
+      name: spotify-proto
+      type: response
+      require-body: true
+      binary-body-mode: true
+      max-size: 0
+
+    # TrueCaller
+    - match: ^https://premium-(.+)\.truecaller\.com/v\d/(subscriptions|products/apple)
+      name: Truecaller
+      type: response
+      require-body: true
+      max-size: 0
+
+script-providers:
+  Camscanner:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/camscanner.js
+    interval: 86400
+
+  Lightroom:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/lightroom.js
+    interval: 86400
+
+  Locket:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/locket.js
+    interval: 86400
+
+  Nicegram:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/Nicegram.js
+    interval: 86400
+
+  Picsart:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/picsart.js
+    interval: 86400
+
+  Relens:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/relens.js
+    interval: 86400
+
+  SoundCloudGo:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/soundcloud.js
+    interval: 86400
+
+  spotify-qx-header:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/spotify-qx-header.js
+    interval: 86400
+
+  spotify-json:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/spotify-json.js
+    interval: 86400
+
+  spotify-proto:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/spotify-proto.js
+    interval: 86400
+
+  Truecaller:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/truecaller.js
+    interval: 86400
