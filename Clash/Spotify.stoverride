@@ -1,0 +1,42 @@
+name: Spotify
+desc: Spotify
+
+http:
+  mitm:
+    - spclient.wg.spotify.com
+    - *spclient.spotify.com
+  
+  header-rewrite:
+    - ^https://(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)/user-customization-service/v1/customize$:
+        if-none-match: ""
+
+  script:
+    - match: ^https://(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)/user-customization-service/v1/customize$
+      name: spotify-qx-header
+      type: request
+      require-body: false
+  
+    - match: ^https://(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)/(artistview/v1/artist|album-entity-view/v2/album)/
+      name: spotify-json
+      type: request
+      require-body: false
+
+    - match: ^https://(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)/(bootstrap/v1/bootstrap|user-customization-service/v1/customize)$
+      name: spotify-proto
+      type: response
+      require-body: true
+      binary-body-mode: true
+      max-size: 0
+
+script-providers:
+  spotify-qx-header:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/spotify-qx-header.js
+    interval: 86400
+  
+  spotify-json:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/spotify-json.js
+    interval: 86400
+  
+  spotify-proto:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/spotify-proto.js
+    interval: 86400
