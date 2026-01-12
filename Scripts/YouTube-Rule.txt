@@ -1,3 +1,0 @@
-rules:
-  - AND,((DOMAIN-SUFFIX,googlevideo.com), (PROTOCOL,UDP)),REJECT
-  - AND,((DOMAIN,youtubei.googleapis.com), (PROTOCOL,UDP)),REJECT
