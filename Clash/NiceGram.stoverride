@@ -1,0 +1,19 @@
+name: NiceGram
+desc: NiceGram
+
+http:
+  mitm:
+    - nicegram.cloud
+    - restore-access.indream.app
+
+  script:
+    - match: ^https?://(nicegram\.cloud/api/v\d/user/info|restore-access\.indream\.app/restoreAccess)
+      name: Nicegram
+      type: response
+      require-body: true
+      max-size: 0
+
+script-providers:
+  Nicegram:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/Nicegram.js
+    interval: 86400
