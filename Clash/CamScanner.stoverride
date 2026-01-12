@@ -1,0 +1,17 @@
+name: CamScanner
+desc: CamScanner
+
+http:
+  mitm:
+    - ap*.intsig.net
+
+  script:
+    - match: ^https://(api|api-cs.*)\.intsig\.net/purchase/cs/query_property\?
+      name: Camscanner
+      type: response
+      require-body: true
+
+script-providers:
+  Camscanner:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/camscanner.js
+    interval: 86400
