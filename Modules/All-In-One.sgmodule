@@ -1,0 +1,65 @@
+#!name= All In One
+#!desc= 🐰
+
+[Header Rewrite]
+^https:\/\/api\.(picsart|meiease)\.c(n|om)\/users\/show\/me\.json header-del if-none-match
+http-request ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/user-customization-service\/v1\/customize$ header-del if-none-match
+
+[MITM]
+hostname = %APPEND% ap*.intsig.net, photos.adobe.io, api.revenuecat.com, nicegram.cloud, buy.itunes.apple.com, api.picsart.com, api-mobile.soundcloud.com, spclient.wg.spotify.com, *spclient.spotify.com, premium*.truecaller.com
+
+[Script]
+
+# CamScanner
+hostname = ap*.intsig.net
+Camscanner = requires-body=1,script-path=https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/camscanner.js,type=http-response,pattern= https:\/\/(api|api-cs.*)\.intsig\.net\/purchase\/cs\/query_property\?
+
+————————————————————————————————————————————————————
+
+# Lightroom
+hostname= photos.adobe.iou
+Lightroom = type=http-response,pattern=^https:\/\/photos\.adobe\.io\/v\d\/accounts,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/lightroom.js,script-update-interval=-1
+
+————————————————————————————————————————————————————
+
+# Locket
+hostname= api.revenuecat.com
+Locket = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), requires-body=true, max-size=-1, timeout=60, script-path=https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/locket.js
+
+————————————————————————————————————————————————————
+
+# NiceGram
+hostname = nicegram.cloud
+Nicegram = type=http-response,pattern=^https?:\/\/(nicegram\.cloud\/api\/v\d\/user\/info|restore-access\.indream\.app\/restoreAccess),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/Nicegram.js,script-update-interval=0
+
+————————————————————————————————————————————————————
+
+# Picsart
+hostname = %APPEND% buy.itunes.apple.com, api.picsart.com
+http-request https://api.picsart.com/gw-v2/shop/subscription/apple/purchases script-path=https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/picsart.js, requires-body=true, timeout=5
+
+————————————————————————————————————————————————————
+
+# ReLens
+hostname = buy.itunes.apple.com
+Relens=type=http-response,pattern=^https:\/\/buy\.itunes\.apple\.com\/verifyReceipt,requires-body=1,script-path=https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/relens.js
+
+————————————————————————————————————————————————————
+
+# SoundCloud
+hostname = api-mobile.soundcloud.com
+SoundCloudGo= type=http-response,pattern=https://api-mobile.soundcloud.com/configuration/ios,requires-body=1,script-path=https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/soundcloud.js
+
+————————————————————————————————————————————————————
+
+# Spotify
+hostname = spclient.wg.spotify.com, *spclient.spotify.com
+spotify-qx-header = type=http-request,pattern=^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/user-customization-service\/v1\/customize$,script-path=https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/spotify-qx-header.js
+spotify-json = type=http-request,pattern=^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(artistview\/v1\/artist|album-entity-view\/v2\/album)\/,requires-body=0,script-path=https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/spotify-json.js
+spotify-proto = type=http-response,pattern=^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)$,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/spotify-proto.js,script-update-interval=0
+
+————————————————————————————————————————————————————
+
+# TrueCaller
+hostname = premium*.truecaller.com
+Truecaller = type=http-response,pattern=^https://premium-(.+)\.truecaller\.com/v\d/(subscriptions|products\/apple),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/truecaller.js
