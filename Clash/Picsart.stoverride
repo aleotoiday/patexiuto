@@ -1,0 +1,25 @@
+name: Picsart
+desc: Picsart
+
+http:
+  mitm:
+    - buy.itunes.apple.com
+    - api.picsart.com
+    - api.meiease.cn
+    - api.meiease.com
+
+  header-rewrite:
+    - ^https://api\.(picsart|meiease)\.c(n|om)/users/show/me\.json$:
+        if-none-match: ""
+
+  script:
+    - match: ^https://api.picsart.com/gw-v2/shop/subscription/apple/purchases
+      name: Picsart
+      type: request
+      require-body: true
+      timeout: 5
+
+script-providers:
+  Picsart:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/picsart.js
+    interval: 86400
