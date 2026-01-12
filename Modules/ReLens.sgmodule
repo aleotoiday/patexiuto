@@ -1,0 +1,7 @@
+#!name= ReLens
+#!desc= ReLens
+
+[MITM]
+hostname = %APPEND% buy.itunes.apple.com
+[Script]
+Relens=type=http-response,pattern=^https:\/\/buy\.itunes\.apple\.com\/verifyReceipt,requires-body=1,script-path=https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/relens.js
