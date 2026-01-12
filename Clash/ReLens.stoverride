@@ -1,0 +1,17 @@
+name: ReLens
+desc: ReLens
+
+http:
+  mitm:
+    - buy.itunes.apple.com
+
+  script:
+    - match: ^https://buy\.itunes\.apple\.com/verifyReceipt
+      name: Relens
+      type: response
+      require-body: true
+
+script-providers:
+  Relens:
+    url: https://raw.githubusercontent.com/aleotoiday/patexiuto/master/Scripts/relens.js
+    interval: 86400
